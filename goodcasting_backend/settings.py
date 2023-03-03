@@ -103,7 +103,7 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'goodcasting heroku db',
+        'NAME': 'heroku',
         'USER': 'b3d155169edc22',
         'PASSWORD': '3227b9e9',
         'HOST': 'us-cdbr-east-06.cleardb.net',
