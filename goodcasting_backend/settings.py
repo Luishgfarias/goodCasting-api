@@ -26,7 +26,7 @@ SECRET_KEY = 'SECRET_KEY'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['app.goodcasting.pt', 'api.goodcasting.pt', '.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['app.goodcasting.pt', 'api.goodcasting.pt', '.vercel.app', '.now.sh', '*', '.rds.amazonaws.com']
 
 
 # Application definition
@@ -96,6 +96,10 @@ WSGI_APPLICATION = 'goodcasting_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+import pymysql
+
+pymysql.install_as_MySQLdb()
+
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -103,10 +107,14 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'heroku',
-        'USER': 'b3d155169edc22',
-        'PASSWORD': '3227b9e9',
-        'HOST': 'us-cdbr-east-06.cleardb.net',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        },
+        'NAME': 'goodcastingdb',
+        'USER': 'admin',
+        'PASSWORD': 'uLESTerTHiLaroUsHILeSTro',
+        'HOST': 'goodcastingdb.ct3gnj4bkybk.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
     }
 }
 
@@ -183,7 +191,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "..", "static_media")
 APP_ID = "ONESIGNAL_APP_ID"
 APP_KEY = "ONESIGNAL_APP_KEY"
 
-try:
-    from .local_settings import *
-except ImportError as e:
-    pass
+# try:
+#     from .local_settings import *
+# except ImportError as e:
+#     pass
